@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 // 1. THE BLUEPRINT
 class Book {
@@ -43,16 +44,45 @@ class Library {
 
 // 3. THE MAIN METHOD
 public class Main {
-    // Added the word 'main'
     public static void main(String[] args) {
 
-        // Fixed spelling: myLibrary
         Library myLibrary = new Library();
+        Scanner scanner = new Scanner(System.in);
+        boolean running = true;
 
-        myLibrary.addBook("Harry Potter", "J.K. Rowling");
-        myLibrary.addBook("The Hobbit", "J.R.R. Tolkien");
-        myLibrary.addBook("Clean Code", "Robert Martin");
+        System.out.println("Welcome to the Java Library!");
 
-        myLibrary.displayBooks();
+        // A loop to keep the program running until the user exits
+        while (running) {
+            System.out.println("\n--- MENU ---");
+            System.out.println("1. Add a Book");
+            System.out.println("2. View All Books");
+            System.out.println("3. Exit");
+            System.out.print("Choose an option: ");
+
+            int choice = scanner.nextInt(); // Reads the number the user types
+            scanner.nextLine(); // Clears the "Enter" key from the buffer (a Java quirk!)
+
+            if (choice == 1) {
+                System.out.print("Enter book title: ");
+                String title = scanner.nextLine();
+
+                System.out.print("Enter book author: ");
+                String author = scanner.nextLine();
+
+                myLibrary.addBook(title, author);
+
+            } else if (choice == 2) {
+                myLibrary.displayBooks();
+
+            } else if (choice == 3) {
+                System.out.println("Goodbye!");
+                running = false; // This breaks the while loop
+            } else {
+                System.out.println("Invalid option. Try again.");
+            }
+        }
+
+        scanner.close(); // Always close the scanner when done
     }
 }
